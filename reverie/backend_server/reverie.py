@@ -344,7 +344,7 @@ class ReverieServer:
         if env_retrieved: 
           # This is where we go through <game_obj_cleanup> to clean up all 
           # object actions that were used in this cylce. 
-          for key, val in game_obj_cleanup.items(): 
+          for key, val in game_obj_cl:waeanup.items():
             # We turn all object actions to their blank form (with None). 
             self.maze.turn_event_from_tile_idle(key, val)
           # Then we initialize game_obj_cleanup for this cycle. 

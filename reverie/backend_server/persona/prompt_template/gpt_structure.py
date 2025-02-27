@@ -44,25 +44,48 @@ def setup_client(type: str, config: dict):
     raise ValueError("Invalid client")
   return client
 
-if openai_config["client"] == "azure":
-  client = setup_client("azure", {
-      "endpoint": openai_config["model-endpoint"],
-      "key": openai_config["model-key"],
-      "api-version": openai_config["model-api-version"],
-  })
-elif openai_config["client"] == "openai":
-  client = setup_client("openai", { "key": openai_config["model-key"] })
+# if openai_config["client"] == "azure":
+#   client = setup_client("azure", {
+#       "endpoint": openai_config["model-endpoint"],
+#       "key": openai_config["model-key"],
+#       "api-version": openai_config["model-api-version"],
+#   })
+# elif openai_config["client"] == "openai":
+#   client = setup_client("openai", { "key": openai_config["model-key"] })
 
-if openai_config["embeddings-client"] == "azure":  
-  embeddings_client = setup_client("azure", {
-      "endpoint": openai_config["embeddings-endpoint"],
-      "key": openai_config["embeddings-key"],
-      "api-version": openai_config["embeddings-api-version"],
-  })
-elif openai_config["embeddings-client"] == "openai":
-  embeddings_client = setup_client("openai", { "key": openai_config["embeddings-key"] })
-else:
-  raise ValueError("Invalid embeddings client")
+
+client = OpenAI(
+    api_key="7fb9d05edadc426aaa836e334c706ae2.s4aLWRTeepiRDZPl",
+    base_url="https://open.bigmodel.cn/api/paas/v4/"
+)
+
+embeddings_client = OpenAI(
+    api_key="7fb9d05edadc426aaa836e334c706ae2.s4aLWRTeepiRDZPl",
+    base_url="https://open.bigmodel.cn/api/paas/v4/"
+)
+# response = client.embeddings.create(
+#     model="embedding-3", #填写需要调用的模型编码
+#      input=[
+#         "美食非常美味，服务员也很友好。",
+#         "这部电影既刺激又令人兴奋。",
+#         "阅读书籍是扩展知识的好方法。"
+#     ],
+#     dimensions=256
+# )
+# print(len(response.data))
+# print(len(response.data[0].embedding))
+
+
+# if openai_config["embeddings-client"] == "azure":
+#   embeddings_client = setup_client("azure", {
+#       "endpoint": openai_config["embeddings-endpoint"],
+#       "key": openai_config["embeddings-key"],
+#       "api-version": openai_config["embeddings-api-version"],
+#   })
+# elif openai_config["embeddings-client"] == "openai":
+#   embeddings_client = setup_client("openai", {"key": openai_config["embeddings-key"] })
+# else:
+#   raise ValueError("Invalid embeddings client")
 
 cost_logger = OpenAICostLogger_Singleton(
   experiment_name = openai_config["experiment-name"],
@@ -263,7 +286,7 @@ def safe_generate_response(prompt,
   return fail_safe_response
 
 
-def get_embedding(text, model=openai_config["embeddings"]):
+def get_embedding(text, model="embedding-3"):
   text = text.replace("\n", " ")
   if not text: 
     text = "this is blank"
