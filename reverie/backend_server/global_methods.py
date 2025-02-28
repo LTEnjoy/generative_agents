@@ -21,7 +21,7 @@ from os import listdir
 def create_folder_if_not_there(curr_path): 
   """
   Checks if a folder in the curr_path exists. If it does not exist, creates
-  the folder. 
+  the folder.
   Note that if the curr_path designates a file location, it will operate on 
   the folder that contains the file. But the function also works even if the 
   path designates to just a folder. 

@@ -160,7 +160,7 @@ def perceive(persona, maze):
         else: 
           chat_embedding = get_embedding(persona.scratch
                                                 .act_description)
-        chat_embedding_pair = (persona.scratch.act_description, 
+        chat_embedding_pair = (persona.scratch.act_description,
                                chat_embedding)
         chat_poignancy = generate_poig_score(persona, "chat", 
                                              persona.scratch.act_description)

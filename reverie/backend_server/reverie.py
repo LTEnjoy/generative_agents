@@ -26,6 +26,7 @@ import time
 import math
 import os
 import shutil
+import sys
 import traceback
 import argparse
 
@@ -56,7 +57,7 @@ class ReverieServer:
   def __init__(self, 
                fork_sim_code,
                sim_code):
-    
+
     print ("(reverie): Temp storage: ", fs_temp_storage)
         
     # FORKING FROM A PRIOR SIMULATION:
@@ -320,8 +321,7 @@ class ReverieServer:
 
     # The main while loop of Reverie. 
     while (True): 
-      
-      # Done with this iteration if <int_counter> reaches 0. 
+      # Done with this iteration if <int_counter> reaches 0.
       if int_counter == 0: 
         break
 
@@ -338,13 +338,13 @@ class ReverieServer:
           with open(curr_env_file) as json_file:
             new_env = json.load(json_file)
             env_retrieved = True
-        except: 
+        except:
           pass
-      
-        if env_retrieved: 
+
+        if env_retrieved:
           # This is where we go through <game_obj_cleanup> to clean up all 
           # object actions that were used in this cylce. 
-          for key, val in game_obj_cl:waeanup.items():
+          for key, val in game_obj_cleanup.items():
             # We turn all object actions to their blank form (with None). 
             self.maze.turn_event_from_tile_idle(key, val)
           # Then we initialize game_obj_cleanup for this cycle. 
@@ -387,7 +387,8 @@ class ReverieServer:
           # This is where the core brains of the personas are invoked. 
           movements = {"persona": dict(), 
                        "meta": dict()}
-          for persona_name, persona in self.personas.items(): 
+
+          for persona_name, persona in self.personas.items():
             # <next_tile> is a x,y coordinate. e.g., (58, 9)
             # <pronunciatio> is an emoji. e.g., "\ud83d\udca4"
             # <description> is a string description of the movement. e.g., 
@@ -396,6 +397,7 @@ class ReverieServer:
             next_tile, pronunciatio, description = persona.move(
               self.maze, self.personas, self.personas_tile[persona_name], 
               self.curr_time)
+
             movements["persona"][persona_name] = {}
             movements["persona"][persona_name]["movement"] = next_tile
             movements["persona"][persona_name]["pronunciatio"] = pronunciatio

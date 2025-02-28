@@ -16,16 +16,16 @@ sys.path.append('../')
 
 from global_methods import *
 
-from persona.memory_structures.spatial_memory import *
-from persona.memory_structures.associative_memory import *
-from persona.memory_structures.scratch import *
+from .memory_structures.spatial_memory import *
+from .memory_structures.associative_memory import *
+from .memory_structures.scratch import *
 
-from persona.cognitive_modules.perceive import *
-from persona.cognitive_modules.retrieve import *
-from persona.cognitive_modules.plan import *
-from persona.cognitive_modules.reflect import *
-from persona.cognitive_modules.execute import *
-from persona.cognitive_modules.converse import *
+from .cognitive_modules.perceive import *
+from .cognitive_modules.retrieve import *
+from .cognitive_modules.plan import *
+from .cognitive_modules.reflect import *
+from .cognitive_modules.execute import *
+from .cognitive_modules.converse import *
 
 class Persona: 
   def __init__(self, name, folder_mem_saved=False):
@@ -215,11 +215,11 @@ class Persona:
           != curr_time.strftime('%A %B %d')):
       new_day = "New day"
     self.scratch.curr_time = curr_time
-
-    # Main cognitive sequence begins here. 
+    # Main cognitive sequence begins here.
     perceived = self.perceive(maze)
     retrieved = self.retrieve(perceived)
     plan = self.plan(maze, personas, new_day, retrieved)
+
     self.reflect()
 
     # <execution> is a triple set that contains the following components: 

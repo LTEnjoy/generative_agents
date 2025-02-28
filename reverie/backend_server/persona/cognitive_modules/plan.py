@@ -35,6 +35,7 @@ def generate_wake_up_hour(persona):
     8
   """
   if debug: print ("GNS FUNCTION: <generate_wake_up_hour>")
+  raise
   return int(run_gpt_prompt_wake_up_hour(persona)[0])
 
 
