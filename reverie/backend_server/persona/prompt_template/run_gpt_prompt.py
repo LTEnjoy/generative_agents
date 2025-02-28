@@ -135,8 +135,6 @@ def run_gpt_prompt_daily_plan(persona,
           'relax and watch TV from 7:00 pm to 8:00 pm', 
           'go to bed at 11:00 pm'] 
     return fs
-
-
   
   gpt_param = {"engine": "gpt-35-turbo-0125", "max_tokens": 500, 
                "temperature": 1, "top_p": 1, "stream": False,
@@ -145,7 +143,6 @@ def run_gpt_prompt_daily_plan(persona,
   prompt_input = create_prompt_input(persona, wake_up_hour, test_input)
   prompt = generate_prompt(prompt_input, prompt_template)
   fail_safe = get_fail_safe()
-
   output = safe_generate_response(prompt, gpt_param, 5, fail_safe,
                                    __func_validate, __func_clean_up)
   output = ([f"wake up and complete the morning routine at {wake_up_hour}:00 am"]

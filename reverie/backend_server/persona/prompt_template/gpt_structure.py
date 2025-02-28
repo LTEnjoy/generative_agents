@@ -215,10 +215,11 @@ def GPT_request(prompt, gpt_parameter):
   temp_sleep()
   try: 
     messages = [{
-      "role": "system", "content": prompt
+      "role": "user", "content": prompt
     }]
+
     response = client.chat.completions.create(
-                model=gpt_parameter["engine"],
+                model="glm-4",
                 messages=messages,
                 temperature=gpt_parameter["temperature"],
                 max_tokens=gpt_parameter["max_tokens"],
@@ -230,8 +231,8 @@ def GPT_request(prompt, gpt_parameter):
     cost_logger.update_cost(response=response, input_cost=openai_config["model-costs"]["input"], output_cost=openai_config["model-costs"]["output"])
     return response.choices[0].message.content
   except Exception as e:
-    print(f"Error: {e}")
-    return "TOKEN LIMIT EXCEEDED"
+    raise e
+    # return f"Error: {e}"
 
 
 def generate_prompt(curr_input, prompt_lib_file): 
@@ -290,6 +291,8 @@ def get_embedding(text, model="embedding-3"):
   text = text.replace("\n", " ")
   if not text: 
     text = "this is blank"
+    
+  model = "embedding-3"
   response = embeddings_client.embeddings.create(input=[text], model=model)
   cost_logger.update_cost(response=response, input_cost=openai_config["embeddings-costs"]["input"], output_cost=openai_config["embeddings-costs"]["output"])
   return response.data[0].embedding

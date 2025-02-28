@@ -35,7 +35,6 @@ def generate_wake_up_hour(persona):
     8
   """
   if debug: print ("GNS FUNCTION: <generate_wake_up_hour>")
-  raise
   return int(run_gpt_prompt_wake_up_hour(persona)[0])
 
 
@@ -484,10 +483,9 @@ def _long_term_planning(persona, new_day):
                                                           wake_up_hour)
   elif new_day == "New day":
     revise_identity(persona)
-
     # - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - TODO
     # We need to create a new daily_req here...
-    persona.scratch.daily_req = persona.scratch.daily_req
+  persona.scratch.daily_req = persona.scratch.daily_req
 
   # Based on the daily_req, we create an hourly schedule for the persona, 
   # which is a list of todo items with a time duration (in minutes) that 
@@ -496,7 +494,6 @@ def _long_term_planning(persona, new_day):
                                                               wake_up_hour)
   persona.scratch.f_daily_schedule_hourly_org = (persona.scratch
                                                    .f_daily_schedule[:])
-
 
   # Added March 4 -- adding plan to the memory.
   thought = f"This is {persona.scratch.name}'s plan for {persona.scratch.curr_time.strftime('%A %B %d')}:"
@@ -954,7 +951,7 @@ def plan(persona, maze, personas, new_day, retrieved):
   # PART 1: Generate the hourly schedule. 
   if new_day: 
     _long_term_planning(persona, new_day)
-
+  
   # PART 2: If the current action has expired, we want to create a new plan.
   if persona.scratch.act_check_finished(): 
     _determine_action(persona, maze)
